@@ -61,7 +61,69 @@ function isValidMoveValue(moveValue){
   return (moveValue >= 1) && (moveValue <= 99);
 }
 
-function getRoundWinner(){
+function getRoundWinner(roundNumber){
+  // create switch statement that takes parameter 'roundNumber' that checks for a matching case of round 1, 2, or 3.
+  switch (roundNumber){
+    case 1:
+      return getMoveWinner(
+        playerOneMoveOneType, 
+        playerOneMoveOneValue, 
+        playerTwoMoveOneType, 
+        playerTwoMoveOneValue);
+    case 2:
+      return getMoveWinner(
+        playerOneMoveTwoType, 
+        playerOneMoveTwoValue, 
+        playerTwoMoveTwoType, 
+        playerTwoMoveTwoValue);
+    case 3:
+      return getMoveWinner(
+        playerOneMoveThreeType, 
+        playerOneMoveThreeValue, 
+        playerTwoMoveThreeType, 
+        playerTwoMoveThreeValue);
+    default:
+        return null;
+    
+  }
+}
+function getMoveWinner(playerOneMoveType, playerOneMoveValue, playerTwoMoveType, playerTwoMoveValue){
+  // fail safe if values are missing
+  if(!playerOneMoveType || !playerOneMoveValue || !playerTwoMoveType || !playerTwoMoveValue){
+    return null;
+  }
+
+  if(playerOneMoveType === playerTwoMoveType){
+    if(playerOneMoveValue > playerTwoMoveValue){
+      // return who has won or if it is a tie
+      return 'Player One';
+    } else if (playerOneMoveValue < playerTwoMoveValue){
+      return 'Player Two';
+    } else {
+      return 'Tie';
+    }
+  }
+  if(playerOneMoveType === 'rock'){
+    if(playerTwoMoveType === 'scissors'){
+      return 'Player One';
+    } else {
+      return 'Player Two';
+    }
+  }
+  if(playerOneMoveType === 'paper'){
+    if(playerTwoMoveType === 'rock'){
+      return 'Player One';
+    } else {
+      return 'Player Two';
+    }
+  }
+  if(playerOneMoveType === 'scissors'){
+    if(playerTwoMoveType === 'paper'){
+      return 'Player One';
+    } else {
+      return 'Player Two';
+    }
+  }
 
 }
 function getGameWinner(){
